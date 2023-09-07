@@ -35,64 +35,44 @@ private:
 #define LOG_ERROR(...)                                                                            \
     do {                                                                                          \
         if (LOGGER()->getLevel() >= LEVEL_ERROR) {                                                \
-            char header[LOG_LENGTH];                                                              \
-            sprintf(header, "[ERROR]%s %s(Line %d): ", __FILE__, __FUNCTION__, __LINE__);         \
-            Serial.print(header);                                                                 \
-            char info[LOG_LENGTH];                                                                \
-            sprintf(info, __VA_ARGS__);                                                           \
-            Serial.print(info);                                                                   \
+            Serial.printf("[ERROR]%s %s(Line %d): ", __FILE__, __FUNCTION__, __LINE__);           \
+            Serial.printf(__VA_ARGS__);                                                           \
             Serial.print("\n");                                                                   \
         }                                                                                         \
     } while (0)
 
 #define LOG_WARNING(...)                                                                          \
     do {                                                                                          \
-        if (LOGGER()->getLevel() >= LEVEL_WARNING) {                                              \
-            char header[LOG_LENGTH];                                                              \
-            sprintf(header, "[WARNING]%s %s(Line %d): ", __FILE__, __FUNCTION__, __LINE__);       \
-            Serial.print(header);                                                                 \
-            char info[LOG_LENGTH];                                                                \
-            sprintf(info, __VA_ARGS__);                                                           \
-            Serial.print(info);                                                                   \
+        if (LOGGER()->getLevel() >= LEVEL_ERROR) {                                                \
+            Serial.printf("[WARNING]%s %s(Line %d): ", __FILE__, __FUNCTION__, __LINE__);         \
+            Serial.printf(__VA_ARGS__);                                                           \
             Serial.print("\n");                                                                   \
         }                                                                                         \
     } while (0)
 
 #define LOG_INFO(...)                                                                             \
     do {                                                                                          \
-        if (LOGGER()->getLevel() >= LEVEL_INFO) {                                                 \
-            char header[LOG_LENGTH];                                                              \
-            sprintf(header, "[INFO]%s %s(Line %d): ", __FILE__, __FUNCTION__, __LINE__);          \
-            Serial.print(header);                                                                 \
-            char info[LOG_LENGTH];                                                                \
-            sprintf(info, __VA_ARGS__);                                                           \
-            Serial.print(info);                                                                   \
+        if (LOGGER()->getLevel() >= LEVEL_ERROR) {                                                \
+            Serial.printf("[INFO]%s %s(Line %d): ", __FILE__, __FUNCTION__, __LINE__);            \
+            Serial.printf(__VA_ARGS__);                                                           \
             Serial.print("\n");                                                                   \
         }                                                                                         \
     } while (0)
 
 #define LOG_DEBUG(...)                                                                            \
     do {                                                                                          \
-        if (LOGGER()->getLevel() >= LEVEL_DEBUG) {                                                \
-            char header[LOG_LENGTH];                                                              \
-            sprintf(header, "[DEBUG]%s %s(Line %d): ", __FILE__, __FUNCTION__, __LINE__);         \
-            Serial.print(header);                                                                 \
-            char info[LOG_LENGTH];                                                                \
-            sprintf(info, __VA_ARGS__);                                                           \
-            Serial.print(info);                                                                   \
+        if (LOGGER()->getLevel() >= LEVEL_ERROR) {                                                \
+            Serial.printf("[DEBUG]%s %s(Line %d): ", __FILE__, __FUNCTION__, __LINE__);           \
+            Serial.printf(__VA_ARGS__);                                                           \
             Serial.print("\n");                                                                   \
         }                                                                                         \
     } while (0)
 
 #define LOG_TRACE(...)                                                                            \
     do {                                                                                          \
-        if (LOGGER()->getLevel() >= LEVEL_TRACE) {                                                \
-            char header[LOG_LENGTH];                                                              \
-            sprintf(header, "[TRACE]%s %s(Line %d): ", __FILE__, __FUNCTION__, __LINE__);         \
-            Serial.print(header);                                                                 \
-            char info[LOG_LENGTH];                                                                \
-            sprintf(info, __VA_ARGS__);                                                           \
-            Serial.print(info);                                                                   \
+        if (LOGGER()->getLevel() >= LEVEL_ERROR) {                                                \
+            Serial.printf("[TRACE]%s %s(Line %d): ", __FILE__, __FUNCTION__, __LINE__);           \
+            Serial.printf(__VA_ARGS__);                                                           \
             Serial.print("\n");                                                                   \
         }                                                                                         \
     } while (0)
