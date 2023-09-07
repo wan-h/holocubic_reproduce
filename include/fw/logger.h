@@ -43,7 +43,7 @@ private:
 
 #define LOG_WARNING(...)                                                                          \
     do {                                                                                          \
-        if (LOGGER()->getLevel() >= LEVEL_ERROR) {                                                \
+        if (LOGGER()->getLevel() >= LEVEL_WARNING) {                                              \
             Serial.printf("[WARNING]%s %s(Line %d): ", __FILE__, __FUNCTION__, __LINE__);         \
             Serial.printf(__VA_ARGS__);                                                           \
             Serial.print("\n");                                                                   \
@@ -52,7 +52,7 @@ private:
 
 #define LOG_INFO(...)                                                                             \
     do {                                                                                          \
-        if (LOGGER()->getLevel() >= LEVEL_ERROR) {                                                \
+        if (LOGGER()->getLevel() >= LEVEL_INFO) {                                                 \
             Serial.printf("[INFO]%s %s(Line %d): ", __FILE__, __FUNCTION__, __LINE__);            \
             Serial.printf(__VA_ARGS__);                                                           \
             Serial.print("\n");                                                                   \
@@ -61,7 +61,7 @@ private:
 
 #define LOG_DEBUG(...)                                                                            \
     do {                                                                                          \
-        if (LOGGER()->getLevel() >= LEVEL_ERROR) {                                                \
+        if (LOGGER()->getLevel() >= LEVEL_DEBUG) {                                                \
             Serial.printf("[DEBUG]%s %s(Line %d): ", __FILE__, __FUNCTION__, __LINE__);           \
             Serial.printf(__VA_ARGS__);                                                           \
             Serial.print("\n");                                                                   \
@@ -70,7 +70,7 @@ private:
 
 #define LOG_TRACE(...)                                                                            \
     do {                                                                                          \
-        if (LOGGER()->getLevel() >= LEVEL_ERROR) {                                                \
+        if (LOGGER()->getLevel() >= LEVEL_TRACE) {                                                \
             Serial.printf("[TRACE]%s %s(Line %d): ", __FILE__, __FUNCTION__, __LINE__);           \
             Serial.printf(__VA_ARGS__);                                                           \
             Serial.print("\n");                                                                   \
