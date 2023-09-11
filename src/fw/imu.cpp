@@ -1,12 +1,30 @@
 #include "fw/imu.h"
 #include "fw/logger.h"
 
+static std::map<uint8_t, float> LSB_GYRO_MAP
+{
+    {MPU6050_IMU::MPU6050_GYRO_FS_250,  131},
+    {MPU6050_IMU::MPU6050_GYRO_FS_500,  65.5},
+    {MPU6050_IMU::MPU6050_GYRO_FS_1000, 32.8},
+    {MPU6050_IMU::MPU6050_GYRO_FS_2000, 16.4}
+};
+
+static std::map<uint8_t, float> LSB_ACCEL_MAP
+{
+    {MPU6050_IMU::MPU6050_ACCEL_FS_2,  16384},
+    {MPU6050_IMU::MPU6050_ACCEL_FS_4,  8192},
+    {MPU6050_IMU::MPU6050_ACCEL_FS_8,  4096},
+    {MPU6050_IMU::MPU6050_ACCEL_FS_16, 2048}
+};
+
 IMU::IMU(uint16_t scl, uint16_t sda) 
 : scl_(scl)
 , sda_(sda)
 , mpu6050_()
 , imuMotion_({0, 0, 0, 0, 0, 0})
 , imuMotionOffset_({0, 0, 0, 0, 0, 0})
+, fsGyroRange_(0)
+, fsAccelRange_(0)
 , inited_(false)
 {}
 
@@ -22,8 +40,14 @@ void IMU::init()
     {
         LOG_WARNING("IMU: MPU6050 test connextion ...");
     }
+    
     mpu6050_.initialize();
+    
     calibrate();
+
+    fsGyroRange_ = mpu6050_.getFullScaleGyroRange();
+    fsAccelRange_ = mpu6050_.getFullScaleAccelRange();
+    
     inited_ = true;
 }
 
@@ -33,10 +57,11 @@ void IMU::update()
         LOG_ERROR("IMU: Please init first");
         return;
     }
+
     mpu6050_.getMotion6(&imuMotion_.ax, &imuMotion_.ay, &imuMotion_.az, &imuMotion_.gx, &imuMotion_.gy, &imuMotion_.gz);
     LOG_TRACE(
-        "IMU: update data, ax:%d ay:%d az:%d gx:%d gy:%d gz:%d", 
-        imuMotion_.ax, imuMotion_.ay, imuMotion_.az, imuMotion_.gx, imuMotion_.gy, imuMotion_.gz
+        "IMU: update data, ax:%.3fg ay:%.3fg az:%.3fg gx:%.3fdeg/s gy:%.3fdeg/s gz:%.3fdeg/s", 
+        getAccelX(), getAccelY(), getAccelZ(), getGyroX(), getGyroY(), getGyroZ()
     );
 }
 
@@ -44,7 +69,7 @@ void IMU::update()
 void IMU::calibrate()
 {
     LOG_TRACE("IMU: calibrating ...");
-    // 6次循环自动校正
+    // 600 readings
     mpu6050_.CalibrateAccel(6);
     mpu6050_.CalibrateGyro(6);
     imuMotionOffset_.ax = mpu6050_.getXAccelOffset();
@@ -57,4 +82,13 @@ void IMU::calibrate()
         "IMU: calibrate data, ax:%d ay:%d az:%d gx:%d gy:%d gz:%d", 
         imuMotionOffset_.ax, imuMotionOffset_.ay, imuMotionOffset_.az, imuMotionOffset_.gx, imuMotionOffset_.gy, imuMotionOffset_.gz
     );
+}
+
+float IMU::getValue(int16_t value, bool isAccel)
+{
+    if (isAccel) {
+        return value / LSB_ACCEL_MAP[fsAccelRange_];
+    } else {
+        return value / LSB_GYRO_MAP[fsGyroRange_];
+    }
 }

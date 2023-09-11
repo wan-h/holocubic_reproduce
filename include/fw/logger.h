@@ -4,8 +4,6 @@
 
 #include <Arduino.h>
 
-#define LOG_LENGTH 100
-
 typedef enum LogLevel {
     LEVEL_NONE = 0,
     LEVEL_TRACE,
