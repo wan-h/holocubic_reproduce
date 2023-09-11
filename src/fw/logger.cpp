@@ -8,11 +8,13 @@ Logger::Logger(unsigned long baud, LogLevel logLevel)
 Logger::~Logger()
 {}
 
-Logger* Logger::get() {
+Logger* Logger::get() 
+{
     static Logger ins;
     return &ins;
 }
 
-void Logger::init() {
+void Logger::init() 
+{
     Serial.begin(baud_);
 }
