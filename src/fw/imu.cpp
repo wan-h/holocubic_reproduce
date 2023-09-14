@@ -1,5 +1,6 @@
 #include "fw/imu.h"
 #include "fw/logger.h"
+#include <map>
 
 static std::map<uint8_t, float> LSB_GYRO_MAP
 {

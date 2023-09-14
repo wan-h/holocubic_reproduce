@@ -2,7 +2,6 @@
 #define _IMU_H_
 
 #include <MPU6050.h>
-#include <map>
 
 typedef struct ImuMotion
 {
