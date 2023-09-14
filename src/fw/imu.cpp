@@ -30,7 +30,9 @@ IMU::IMU(uint16_t scl, uint16_t sda)
 {}
 
 IMU::~IMU()
-{}
+{
+    inited_ = false;
+}
 
 void IMU::init()
 {
@@ -50,6 +52,8 @@ void IMU::init()
     fsAccelRange_ = mpu6050_.getFullScaleAccelRange();
     
     inited_ = true;
+
+    LOG_INFO("IMU: init ok");
 }
 
 void IMU::update()
