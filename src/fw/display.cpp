@@ -41,9 +41,11 @@ static void my_disp_flush(lv_disp_drv_t* disp, const lv_area_t* area, lv_color_t
 	lv_disp_flush_ready(disp);
 }
 
-Display::Display(uint16_t width, uint16_t height)
+Display::Display(uint16_t width, uint16_t height, uint8_t brightnessPin)
 : width_(width)
 , height_(height)
+, brightnessPin_(brightnessPin)
+, brightness_(0.5)
 , buf_(nullptr)
 , inited_(false)
 {}
@@ -57,8 +59,15 @@ Display::~Display()
     inited_ = false;
 }
 
+#define LCD_BL_PWM_CHANNEL 0
+#define LCD_BL_PWM_FREQ 5000
+
 void Display::init()
 {
+    // 背光
+    ledcSetup(LCD_BL_PWM_CHANNEL, LCD_BL_PWM_FREQ, 8);
+	ledcAttachPin(brightnessPin_, LCD_BL_PWM_CHANNEL);
+    // lvgl初始化
     lv_init();
 #if LV_USE_LOG
     lv_log_register_print_cb(my_print)
@@ -70,6 +79,7 @@ void Display::init()
 
     // 配置显示驱动
     tft.begin();
+    // tft.setRotation(3);
     lv_disp_drv_init(&dispDrv_);
     dispDrv_.flush_cb = my_disp_flush;    /*Set your driver function*/
     dispDrv_.draw_buf = &drawBuf_;        /*Assign the buffer to the display*/
@@ -79,4 +89,11 @@ void Display::init()
     
     inited_ = true;
     LOG_INFO("Display: init ok");
+}
+
+void Display::setBackLight(float duty)
+{
+    duty = constrain(duty, 0, 1);
+	brightness_ = 1 - duty;
+	ledcWrite(LCD_BL_PWM_CHANNEL, (int)(brightness_ * 255));
 }

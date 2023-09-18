@@ -6,5 +6,6 @@
 #define IMU_SDA 32
 #define DISPLAY_WIDTH 240
 #define DISPLAY_HEIGHT 240
+#define DISPLAY_BL_PIN 5
 
 #endif // !_CONF_H_
