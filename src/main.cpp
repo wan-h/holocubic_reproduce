@@ -2,11 +2,13 @@
 #include "fw/logger.h"
 #include "fw/imu.h"
 #include "fw/display.h"
+#include "fw/resource.h"
 #include "conf.h"
 
 Logger logger(LOG_BAUD, LEVEL_TRACE);
 IMU imu(IMU_SCL, IMU_SDA);
 Display display(DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_BL_PIN);
+Resource resource;
 
 void lv_example_style_2(void)
 {
@@ -37,11 +39,12 @@ void lv_example_style_2(void)
 void setup() {
   // put your setup code here, to run once:
   logger.init();
-  imu.init();
+  // imu.init();
   display.init();
   display.setBackLight(0.8);
   lv_example_style_2();
-  LOG_INFO("Main: Setup success");
+  resource.init();
+  resource.printInfo();
 }
 
 uint32_t cnt = 0;
