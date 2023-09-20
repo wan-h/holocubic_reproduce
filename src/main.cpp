@@ -3,11 +3,13 @@
 #include "fw/imu.h"
 #include "fw/display.h"
 #include "fw/resource.h"
+#include "fw/sdCard.h"
 #include "conf.h"
 
 Logger logger(LOG_BAUD, LEVEL_TRACE);
 IMU imu(IMU_SCL, IMU_SDA);
 Display display(DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_BL_PIN);
+SDCard sdCard(SD_SCK, SD_MISO, SD_MOSI, SD_SS);
 Resource resource;
 
 void lv_example_style_2(void)
@@ -39,10 +41,11 @@ void lv_example_style_2(void)
 void setup() {
   // put your setup code here, to run once:
   logger.init();
-  // imu.init();
+  imu.init();
   display.init();
   display.setBackLight(0.8);
-  lv_example_style_2();
+  // lv_example_style_2();
+  sdCard.init();
   resource.init();
   resource.printInfo();
 }
@@ -50,7 +53,7 @@ void setup() {
 uint32_t cnt = 0;
 void loop() {
   // put your main code here, to run repeatedly:
-  // imu.update();
+  imu.update();
   lv_timer_handler();
   delay(20);
 }

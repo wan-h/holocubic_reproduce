@@ -13,6 +13,7 @@ Resource::~Resource()
 void Resource::init()
 {
     inited_ = true;
+    LOG_INFO("Resource: init ok");
 }
 
 bool Resource::setCpuFreqMhz(uint32_t cpu_freq_mhz)
