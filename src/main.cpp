@@ -44,7 +44,7 @@ void setup() {
   imu.init();
   display.init();
   display.setBackLight(0.8);
-  // lv_example_style_2();
+  lv_example_style_2();
   sdCard.init();
   resource.init();
   resource.printInfo();

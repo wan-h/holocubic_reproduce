@@ -62,7 +62,7 @@ Display::~Display()
 #define LCD_BL_PWM_CHANNEL 0
 #define LCD_BL_PWM_FREQ 5000
 
-void Display::init()
+ErrorCode Display::init()
 {
     // 背光
     ledcSetup(LCD_BL_PWM_CHANNEL, LCD_BL_PWM_FREQ, 8);
@@ -89,11 +89,13 @@ void Display::init()
     
     inited_ = true;
     LOG_INFO("Display: init ok");
+    return ERROR_CODE_OK;
 }
 
-void Display::setBackLight(float duty)
+ErrorCode Display::setBackLight(float duty)
 {
     duty = constrain(duty, 0, 1);
 	brightness_ = 1 - duty;
 	ledcWrite(LCD_BL_PWM_CHANNEL, (int)(brightness_ * 255));
+    return ERROR_CODE_OK;
 }

@@ -16,7 +16,7 @@ SDCard::~SDCard()
     inited_ = false;
 }
 
-void SDCard::init()
+ErrorCode SDCard::init()
 {
     SPIClass* sd_spi = new SPIClass(HSPI);
     sd_spi->begin(clk_, miso_, mosi_, ss_);
@@ -27,7 +27,7 @@ void SDCard::init()
     cardType_ = SD.cardType();
     if(cardType_ == CARD_NONE) {
         LOG_ERROR("SDCard: No SD card attached");
-        return;
+        return ERROR_CODE_ERROR;
     }
     std::string cardType;
     switch (cardType_) {
@@ -47,8 +47,9 @@ void SDCard::init()
 
     cardSize_ = SD.cardSize() / (1024 * 1024 );
     LOG_INFO("SDCard: Type[%s], Size[%llu MB]", cardType.c_str(), cardSize_);
-    LOG_INFO("SDCard: init ok");
     inited_ = true;
+    LOG_INFO("SDCard: init ok");
+    return ERROR_CODE_OK;
 }
 
 bool SDCard::checkInit()
@@ -59,37 +60,42 @@ bool SDCard::checkInit()
     return inited_;
 }
 
-void SDCard::createDir(const std::string path)
+ErrorCode SDCard::createDir(const std::string path)
 {
-    if (!checkInit) return;
+    if (!checkInit()) return ERROR_CODE_INIT;
     if (SD.mkdir(path.c_str())) {
         LOG_TRACE("SDCard: Create dir %s", path.c_str());
     } else {
         LOG_ERROR("SDCard: Create dir %s failed", path.c_str());
+        return ERROR_CODE_ERROR;
     }
+    return ERROR_CODE_OK;
 }
 
-void SDCard::removeDir(const std::string path)
+// 只能删除空文件夹
+ErrorCode SDCard::removeDir(const std::string path)
 {
-    if (!checkInit) return;
+    if (!checkInit()) return ERROR_CODE_INIT;
     if (SD.rmdir(path.c_str())) {
         LOG_TRACE("SDCard: Delete dir %s", path.c_str());
     } else {
         LOG_ERROR("SDCard: Delete dir %s failed", path.c_str());
+        return ERROR_CODE_ERROR;
     }
+    return ERROR_CODE_OK;
 }
 
-void SDCard::listDir(const std::string path)
+ErrorCode SDCard::listDir(const std::string path)
 {
-    if (!checkInit) return;
+    if (!checkInit()) return ERROR_CODE_INIT;
     File root = SD.open(path.c_str());
     if(!root){
         LOG_ERROR("SDCard: Failed to open directory %s for list", path.c_str());
-        return;
+        return ERROR_CODE_ERROR;
     }
     if(!root.isDirectory()){
         LOG_ERROR("SDCard: List directory %s is not a directory", path.c_str());
-        return;
+        return ERROR_CODE_ERROR;
     }
 
     File file = root.openNextFile();
@@ -102,69 +108,90 @@ void SDCard::listDir(const std::string path)
         }
         file = root.openNextFile();
     }
+    LOG_INFO("SDCard: List directory %s %s", path.c_str(), info.c_str());
+    return ERROR_CODE_OK;
 }
 
-void SDCard::readFile(const std::string path)
+ErrorCode SDCard::readFile(const std::string path)
 {
-    if (!checkInit) return;
+    if (!checkInit()) return ERROR_CODE_INIT;
     File file = SD.open(path.c_str());
     if(!file) {
         LOG_ERROR("SDCard: Failed to open file %s for reading", path.c_str());
-        return;
+        return ERROR_CODE_ERROR;
     }
+    std::string data = "";
     while(file.available()) {
-        LOG_INFO("SDCard: Read data [%c]", file.read());
+        data += file.read();
     }
+    LOG_INFO("SDCard: Read data [%s]", data.c_str());
     file.close();
+    return ERROR_CODE_OK;
 }
 
-void SDCard::writeFile(const std::string path, const std::string message, const char* mode)
+ErrorCode SDCard::writeFile(const std::string path, const std::string message)
 {
-    if (!checkInit) return;
-
-    if (strcmp(mode, FILE_WRITE) != 0  && strcmp(mode, FILE_APPEND) != 0) {
-        LOG_ERROR("SDCard: File write only support [%c] and [%c] mode", FILE_WRITE, FILE_APPEND);
-        return;
-    }
+    if (!checkInit()) return ERROR_CODE_INIT;
 
     File file = SD.open(path.c_str(), FILE_WRITE);
     if(!file) {
         LOG_ERROR("SDCard: Failed to open file %s for writing", path.c_str());
-        return;
+        return ERROR_CODE_ERROR;
     }
     if (file.print(message.c_str())) {
         LOG_TRACE("SDCard: Write %s to file %s", message.c_str(), path.c_str());
     } else {
         LOG_ERROR("SDCard: Write to file %s failed", path.c_str());
+        file.close();
+        return ERROR_CODE_ERROR;
     }
     file.close();
+    return ERROR_CODE_OK;
 }
 
-void SDCard::renameFile(const std::string path, const std::string newName)
+// append在没有该文件的时候也会创建文件
+ErrorCode SDCard::appendFile(const std::string path, const std::string message)
 {
-    if (!checkInit) return;
-    if (!SD.exists(path.c_str())) {
-        LOG_ERROR("SDCard: Failed to find file %s for rename", path.c_str());
-        return;
+    if (!checkInit()) return ERROR_CODE_INIT;
+
+    File file = SD.open(path.c_str(), FILE_APPEND);
+    if(!file) {
+        LOG_ERROR("SDCard: Failed to open file %s for writing", path.c_str());
+        return ERROR_CODE_ERROR;
     }
-    if (SD.rename(path.c_str(), newName.c_str())) {
-        LOG_TRACE("SDCard: Rename %s to %s", path.c_str(), newName.c_str());
+    if (file.print(message.c_str())) {
+        LOG_TRACE("SDCard: Write %s to file %s", message.c_str(), path.c_str());
     } else {
-        LOG_ERROR("SDCard: Rename %s to %s failed", path.c_str(), newName.c_str());
+        LOG_ERROR("SDCard: Write to file %s failed", path.c_str());
+        file.close();
+        return ERROR_CODE_ERROR;
+    }
+    file.close();
+    return ERROR_CODE_OK;
+}
+
+// 都要给全路径
+ErrorCode SDCard::renameFile(const std::string path1, const std::string path2)
+{
+    if (!checkInit()) return ERROR_CODE_INIT;
+    if (SD.rename(path1.c_str(), path2.c_str())) {
+        LOG_TRACE("SDCard: Rename %s to %s", path1.c_str(), path2.c_str());
+        return ERROR_CODE_OK;
+    } else {
+        LOG_ERROR("SDCard: Rename %s to %s failed", path1.c_str(), path2.c_str());
+        return ERROR_CODE_ERROR;
     }
 }
 
-void SDCard::deleteFile(const std::string path)
+ErrorCode SDCard::deleteFile(const std::string path)
 {
-    if (!checkInit) return;
-    if (!SD.exists(path.c_str())) {
-        LOG_WARNING("SDCard: Failed to find file %s for delete", path.c_str());
-        return;
-    }
+    if (!checkInit()) return ERROR_CODE_INIT;
     if (SD.remove(path.c_str())) {
         LOG_TRACE("SDCard: Delete file %s", path.c_str());
+        return ERROR_CODE_OK;
     } else {
         LOG_ERROR("SDCard: Delete file %s failed", path.c_str());
+        return ERROR_CODE_ERROR;
     }
 }
 

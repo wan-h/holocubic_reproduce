@@ -2,6 +2,7 @@
 #define _IMU_H_
 
 #include <MPU6050.h>
+#include "fw/errorCode.h"
 
 typedef struct ImuMotion
 {
@@ -28,8 +29,8 @@ class IMU {
 public:
     IMU(uint16_t scl, uint16_t sda);
     ~IMU();
-    void init();
-    void update();
+    ErrorCode init();
+    ErrorCode update();
     float getAccelX() { return getValue(imuMotion_.ax, true); };
     float getAccelY() { return getValue(imuMotion_.ay, true); };
     float getAccelZ() { return getValue(imuMotion_.az, true); };

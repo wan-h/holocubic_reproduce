@@ -10,15 +10,19 @@ Resource::~Resource()
     inited_ = false;
 }
 
-void Resource::init()
+ErrorCode Resource::init()
 {
     inited_ = true;
     LOG_INFO("Resource: init ok");
+    return ERROR_CODE_OK;
 }
 
-bool Resource::setCpuFreqMhz(uint32_t cpu_freq_mhz)
+ErrorCode Resource::setCpuFreqMhz(uint32_t cpu_freq_mhz)
 {
-    return setCpuFrequencyMhz(cpu_freq_mhz);
+    if(setCpuFrequencyMhz(cpu_freq_mhz)) {
+        return ERROR_CODE_OK;
+    }
+    return ERROR_CODE_ERROR;
 }
 
 uint32_t Resource::getCpuFreqMhz()
@@ -36,10 +40,11 @@ uint32_t Resource::getApbFreq()
     return getApbFrequency();
 }
 
-void Resource::printInfo()
+ErrorCode Resource::printInfo()
 {
     uint32_t cpuFreqMhz = getCpuFreqMhz();
     uint32_t xtalFreqMhz = getXtalFreqMhz();
     uint32_t apbFreq = getApbFreq();
     LOG_INFO("CPU Freq: %dMHz; Xtal Freq: %dMHz; Apb Freq: %dHz", cpuFreqMhz, xtalFreqMhz, apbFreq);
+    return ERROR_CODE_OK;
 }

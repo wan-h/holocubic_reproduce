@@ -3,13 +3,14 @@
 
 #include "lvgl.h"
 #include <TFT_eSPI.h>
+#include "fw/errorCode.h"
 
 class Display {
 public:
     Display(uint16_t width, uint16_t height, uint8_t brightnessPin);
     ~Display();
-    void init();
-    void setBackLight(float duty);
+    ErrorCode init();
+    ErrorCode setBackLight(float duty);
 private:
     uint16_t width_;
     uint16_t height_;

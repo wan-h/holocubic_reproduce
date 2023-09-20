@@ -34,7 +34,7 @@ IMU::~IMU()
     inited_ = false;
 }
 
-void IMU::init()
+ErrorCode IMU::init()
 {
     // TODO: I2C 统一封装
     Wire.begin(sda_, scl_);
@@ -54,13 +54,14 @@ void IMU::init()
     inited_ = true;
 
     LOG_INFO("IMU: init ok");
+    return ERROR_CODE_OK;
 }
 
-void IMU::update()
+ErrorCode IMU::update()
 {
     if (!inited_) {
         LOG_ERROR("IMU: Please init first");
-        return;
+        return ERROR_CODE_INIT;
     }
 
     mpu6050_.getMotion6(&imuMotion_.ax, &imuMotion_.ay, &imuMotion_.az, &imuMotion_.gx, &imuMotion_.gy, &imuMotion_.gz);
@@ -68,6 +69,8 @@ void IMU::update()
         "IMU: update data, ax:%.3fg ay:%.3fg az:%.3fg gx:%.3fdeg/s gy:%.3fdeg/s gz:%.3fdeg/s", 
         getAccelX(), getAccelY(), getAccelZ(), getGyroX(), getGyroY(), getGyroZ()
     );
+
+    return ERROR_CODE_OK;
 }
 
 // 自动校准

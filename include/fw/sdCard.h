@@ -4,21 +4,23 @@
 #include "FS.h"
 #include "SD.h"
 #include "SD_MMC.h"
+#include "fw/errorCode.h"
 
 class SDCard
 {
 public:
     SDCard(uint8_t clk, uint8_t miso, uint8_t mosi, uint8_t ss);
     ~SDCard();
-    void init();
+    ErrorCode init();
     // float getUsage();
-    void listDir(const std::string path);
-    void createDir(const std::string path);
-    void removeDir(const std::string path);
-    void readFile(const std::string path);
-    void writeFile(const std::string path, const std::string message, const char* mode = 'w');
-    void renameFile(const std::string path, const std::string newName);
-    void deleteFile(const std::string path);
+    ErrorCode listDir(const std::string path);
+    ErrorCode createDir(const std::string path);
+    ErrorCode removeDir(const std::string path);
+    ErrorCode readFile(const std::string path);
+    ErrorCode writeFile(const std::string path, const std::string message);
+    ErrorCode appendFile(const std::string path, const std::string message);
+    ErrorCode renameFile(const std::string path1, const std::string path2);
+    ErrorCode deleteFile(const std::string path);
 private:
     bool checkInit();
 private:

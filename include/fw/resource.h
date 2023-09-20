@@ -2,18 +2,19 @@
 #define _RESOURCE_H_
 
 #include <Arduino.h>
+#include "fw/errorCode.h"
 
 class Resource
 {
 public:
     Resource();
     ~Resource();
-    void init();
-    bool setCpuFreqMhz(uint32_t cpu_freq_mhz);
+    ErrorCode init();
+    ErrorCode setCpuFreqMhz(uint32_t cpu_freq_mhz);
     uint32_t getCpuFreqMhz();
     uint32_t getXtalFreqMhz();
     uint32_t getApbFreq();
-    void printInfo();
+    ErrorCode printInfo();
 private:
     bool inited_;
 };
