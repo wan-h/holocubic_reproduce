@@ -26,6 +26,7 @@ ErrorCode Led::init()
     colorBuffers_ = (CRGB*)malloc(bufferSize);
     memset(colorBuffers_, 0, bufferSize);
 
+    // TODO: 这里的LED_PIN只能用宏定义或则const, 因为这个模板参数值需要在编译时就确定
     // GRB是控制器的输出顺序，由具体的LED型号决定
     FastLED.addLeds<WS2812, LED_PIN, GRB>(colorBuffers_, ledNum_);
     FastLED.setBrightness((uint8_t)(255 * brightness_));
