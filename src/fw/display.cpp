@@ -89,13 +89,23 @@ ErrorCode Display::init()
     
     inited_ = true;
     LOG_INFO("Display: init ok");
-    return ERROR_CODE_OK;
+    return CODE_OK;
+}
+
+bool Display::chechInit()
+{
+    if (!inited_) {
+        LOG_ERROR("Display: Please init first");
+    }
+    return inited_;
 }
 
 ErrorCode Display::setBackLight(float duty)
 {
+    if (!chechInit()) return CODE_ERROR_INIT_CHECK;
+
     duty = constrain(duty, 0, 1);
 	brightness_ = 1 - duty;
 	ledcWrite(LCD_BL_PWM_CHANNEL, (int)(brightness_ * 255));
-    return ERROR_CODE_OK;
+    return CODE_OK;
 }

@@ -32,7 +32,7 @@ ErrorCode Led::init()
     
     inited_ = true;
     LOG_INFO("Led: init ok");
-    return ERROR_CODE_OK;
+    return CODE_OK;
 }
 
 bool Led::checkInit()
@@ -45,23 +45,25 @@ bool Led::checkInit()
 
 ErrorCode Led::setBrightness(float duty)
 {
-    if (!checkInit()) return ERROR_CODE_INIT;
+    if (!checkInit()) return CODE_ERROR_INIT_CHECK;
 
     duty = constrain(duty, 0, 1);
 	FastLED.setBrightness((uint8_t)(255 * duty));
 	FastLED.show();
     LOG_TRACE("Led: set brightness %f", duty);
-	return ERROR_CODE_OK;
+	return CODE_OK;
 }
 
 ErrorCode Led::setRGB(uint32_t id, uint8_t r, uint8_t g, uint8_t b)
 {
+    if (!checkInit()) return CODE_ERROR_INIT_CHECK;
+
     if (id >= ledNum_) {
         LOG_ERROR("Led: id should < %d", ledNum_);
-        return ERROR_CODE_ERROR;
+        return CODE_ERROR;
     }
     colorBuffers_[id] = CRGB(r, g, b);
 	FastLED.show();
     LOG_TRACE("Led: set led[%d] to R[%d] G[%d] B[%d]", id, r, g, b);
-    return ERROR_CODE_OK;
+    return CODE_OK;
 }

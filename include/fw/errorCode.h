@@ -3,13 +3,12 @@
 
 typedef enum ErrorCode {
     // OK
-    ERROR_CODE_OK = 0,
+    CODE_OK = 0,
     // WARN
-    ERROR_CODE_WARN = 10,
+    CODE_WARN = 10,
     // ERROR
-    ERROR_CODE_ERROR = 100,
-    ERROR_CODE_INIT = 101,
-    
+    CODE_ERROR = 100,
+    CODE_ERROR_INIT_CHECK = 101,
 };
 
 #endif // !_ERROR_CODE_H_

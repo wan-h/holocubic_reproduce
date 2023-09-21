@@ -12,6 +12,8 @@ public:
     ErrorCode init();
     ErrorCode setBackLight(float duty);
 private:
+    bool chechInit();
+private:
     uint16_t width_;
     uint16_t height_;
     uint8_t brightnessPin_;

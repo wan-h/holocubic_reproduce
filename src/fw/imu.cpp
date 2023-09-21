@@ -54,15 +54,20 @@ ErrorCode IMU::init()
     inited_ = true;
 
     LOG_INFO("IMU: init ok");
-    return ERROR_CODE_OK;
+    return CODE_OK;
+}
+
+bool IMU::checkInit()
+{
+    if (!inited_) {
+        LOG_ERROR("IMU: Please init first");
+    }
+    return inited_;
 }
 
 ErrorCode IMU::update()
 {
-    if (!inited_) {
-        LOG_ERROR("IMU: Please init first");
-        return ERROR_CODE_INIT;
-    }
+    if (!checkInit()) return CODE_ERROR_INIT_CHECK;
 
     mpu6050_.getMotion6(&imuMotion_.ax, &imuMotion_.ay, &imuMotion_.az, &imuMotion_.gx, &imuMotion_.gy, &imuMotion_.gz);
     LOG_TRACE(
@@ -70,7 +75,7 @@ ErrorCode IMU::update()
         getAccelX(), getAccelY(), getAccelZ(), getGyroX(), getGyroY(), getGyroZ()
     );
 
-    return ERROR_CODE_OK;
+    return CODE_OK;
 }
 
 // 自动校准

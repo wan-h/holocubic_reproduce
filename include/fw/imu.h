@@ -38,6 +38,7 @@ public:
     float getGyroY()  { return getValue(imuMotion_.gy, false); };
     float getGyroZ()  { return getValue(imuMotion_.gz, false); };
 private:
+    bool checkInit();
     void calibrate();
     float getValue(int16_t value, bool isAccel);
 private:

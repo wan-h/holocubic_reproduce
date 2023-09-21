@@ -14,15 +14,15 @@ ErrorCode Resource::init()
 {
     inited_ = true;
     LOG_INFO("Resource: init ok");
-    return ERROR_CODE_OK;
+    return CODE_OK;
 }
 
 ErrorCode Resource::setCpuFreqMhz(uint32_t cpu_freq_mhz)
 {
     if(setCpuFrequencyMhz(cpu_freq_mhz)) {
-        return ERROR_CODE_OK;
+        return CODE_OK;
     }
-    return ERROR_CODE_ERROR;
+    return CODE_ERROR;
 }
 
 uint32_t Resource::getCpuFreqMhz()
@@ -46,5 +46,5 @@ ErrorCode Resource::printInfo()
     uint32_t xtalFreqMhz = getXtalFreqMhz();
     uint32_t apbFreq = getApbFreq();
     LOG_INFO("CPU Freq: %dMHz; Xtal Freq: %dMHz; Apb Freq: %dHz", cpuFreqMhz, xtalFreqMhz, apbFreq);
-    return ERROR_CODE_OK;
+    return CODE_OK;
 }
