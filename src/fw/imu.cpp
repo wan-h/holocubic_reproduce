@@ -36,6 +36,8 @@ IMU::~IMU()
 
 ErrorCode IMU::init()
 {
+
+    if (inited_) return CODE_OK;
     // TODO: I2C 统一封装
     Wire.begin(sda_, scl_);
     Wire.setClock(400000);

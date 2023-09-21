@@ -3,7 +3,6 @@
 
 #include "fw/errorCode.h"
 #include "fw/imu.h"
-#include <esp32-hal-timer.h>
 
 enum ACTION_TYPE {
     ACTION_NONE = 0,
@@ -17,22 +16,20 @@ enum ACTION_TYPE {
 
 typedef struct ActionInfo
 {
-    ACTION_TYPE actionType;
-    bool isAvailable;
-};
+    ACTION_TYPE actionType = ACTION_NONE;
+    bool isAvailable = false;
+}ActionInfo;
 
 
 class ImuAction 
 {
 public:
-    ImuAction(IMU* imu, uint16_t interval);
+    ImuAction(IMU* imu);
     ~ImuAction();
     ErrorCode init();
     ErrorCode getAction(ActionInfo* actionInfo);
 private:
     IMU* imu_;
-    uint16_t interval_;
-    TimerHandle_t xTimerAction;
     bool inited_;
 };
 

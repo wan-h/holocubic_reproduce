@@ -64,6 +64,7 @@ Display::~Display()
 
 ErrorCode Display::init()
 {
+    if (inited_) return CODE_OK;
     // 背光
     ledcSetup(LCD_BL_PWM_CHANNEL, LCD_BL_PWM_FREQ, 8);
 	ledcAttachPin(brightnessPin_, LCD_BL_PWM_CHANNEL);

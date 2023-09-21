@@ -3,10 +3,13 @@
 Logger::Logger(unsigned long baud, LogLevel logLevel)
 : baud_(baud)
 , level_(logLevel)
+, inited_(false)
 {}
 
 Logger::~Logger()
-{}
+{
+    inited_ = true;
+}
 
 Logger* Logger::get() 
 {
@@ -14,7 +17,9 @@ Logger* Logger::get()
     return &ins;
 }
 
-void Logger::init() 
+ErrorCode Logger::init() 
 {
+    if (inited_) return CODE_OK;
     Serial.begin(baud_);
+    return CODE_OK;
 }

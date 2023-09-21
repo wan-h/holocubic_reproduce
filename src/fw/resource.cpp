@@ -12,6 +12,7 @@ Resource::~Resource()
 
 ErrorCode Resource::init()
 {
+    if (inited_) return CODE_OK;
     inited_ = true;
     LOG_INFO("Resource: init ok");
     return CODE_OK;

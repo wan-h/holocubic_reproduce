@@ -18,6 +18,7 @@ SDCard::~SDCard()
 
 ErrorCode SDCard::init()
 {
+    if (inited_) return CODE_OK;
     SPIClass* sd_spi = new SPIClass(HSPI);
     sd_spi->begin(clk_, miso_, mosi_, ss_);
     while (!SD.begin(ss_, *sd_spi, 8000000)) {

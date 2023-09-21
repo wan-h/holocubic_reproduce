@@ -3,6 +3,7 @@
 #define _LOGGER_H_
 
 #include <Arduino.h>
+#include "fw/errorCode.h"
 
 typedef enum LogLevel {
     LEVEL_NONE = 0,
@@ -21,13 +22,12 @@ public:
 public:
     Logger(unsigned long baud = 9600, LogLevel logLevel = LEVEL_INFO);
     ~Logger();
-    void init();
-    void setLevel(LogLevel level) { level_ = level; };
+    ErrorCode init();
     LogLevel getLevel() { return level_; };
-    void setBaud(unsigned long baud) { baud_ = baud; };
 private:
     unsigned long baud_;
     LogLevel level_;
+    bool inited_;
 };
 
 #define LOG_ERROR(...)                                                                            \

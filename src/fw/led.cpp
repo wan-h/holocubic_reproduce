@@ -22,6 +22,8 @@ Led::~Led()
 
 ErrorCode Led::init()
 {
+    if (inited_) return CODE_OK;
+
     uint32_t bufferSize = sizeof(CRGB) * ledNum_;
     colorBuffers_ = (CRGB*)malloc(bufferSize);
     memset(colorBuffers_, 0, bufferSize);
