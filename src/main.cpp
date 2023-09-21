@@ -4,12 +4,14 @@
 #include "fw/display.h"
 #include "fw/resource.h"
 #include "fw/sdCard.h"
+#include "fw/led.h"
 #include "conf.h"
 
 Logger logger(LOG_BAUD, LEVEL_TRACE);
 IMU imu(IMU_SCL, IMU_SDA);
 Display display(DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_BL_PIN);
 SDCard sdCard(SD_SCK, SD_MISO, SD_MOSI, SD_SS);
+Led led(LED_PIN, LED_NUM);
 Resource resource;
 
 void lv_example_style_2(void)
@@ -43,9 +45,12 @@ void setup() {
   logger.init();
   imu.init();
   display.init();
-  display.setBackLight(0.8);
+  display.setBackLight(0.5);
   lv_example_style_2();
   sdCard.init();
+  led.init();
+  led.setBrightness(0.2);
+  led.setRGB(0, 0, 0, 127);
   resource.init();
   resource.printInfo();
 }
@@ -55,5 +60,6 @@ void loop() {
   // put your main code here, to run repeatedly:
   imu.update();
   lv_timer_handler();
+ 
   delay(20);
 }

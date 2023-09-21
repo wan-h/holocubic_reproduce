@@ -11,5 +11,7 @@
 #define SD_MISO           26
 #define SD_MOSI           13
 #define SD_SS             15
+#define LED_NUM 1
+#define LED_PIN 27
 
 #endif // !_CONF_H_
