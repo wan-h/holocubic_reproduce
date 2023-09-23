@@ -4,6 +4,8 @@
 #include "fw/errorCode.h"
 #include "fw/imu.h"
 
+#define HISTORY_ACTIONS_NUM 3
+
 enum ACTION_TYPE {
     ACTION_NONE = 0,
     ACTION_LEFT,
@@ -24,12 +26,14 @@ typedef struct ActionInfo
 class ImuAction 
 {
 public:
-    ImuAction(IMU* imu);
+    ImuAction(IMU* imu, uint16_t interval);
     ~ImuAction();
     ErrorCode init();
     ErrorCode getAction(ActionInfo* actionInfo);
 private:
     IMU* imu_;
+    uint16_t interval_;
+    ACTION_TYPE historyActions_[HISTORY_ACTIONS_NUM];
     bool inited_;
 };
 

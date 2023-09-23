@@ -3,11 +3,12 @@
 
 #include <Arduino.h>
 #include "fw/errorCode.h"
+#include "fw/logger.h"
 
 class Resource
 {
 public:
-    Resource();
+    Resource(unsigned long baud, LogLevel logLevel);
     ~Resource();
     ErrorCode init();
     ErrorCode setCpuFreqMhz(uint32_t cpu_freq_mhz);
@@ -16,6 +17,8 @@ public:
     uint32_t getApbFreq();
     ErrorCode printInfo();
 private:
+    unsigned long baud_; 
+    LogLevel logLevel_;
     bool inited_;
 };
 

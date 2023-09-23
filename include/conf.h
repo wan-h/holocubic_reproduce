@@ -14,6 +14,6 @@
 #define LED_NUM           1
 #define LED_PIN           27
 
-#define IMU_INTERVAL      200
+#define ACTION_CHECK_INTERVAL      300
 
 #endif // !_CONF_H_

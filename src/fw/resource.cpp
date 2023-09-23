@@ -1,8 +1,9 @@
 #include "fw/resource.h"
-#include "fw/logger.h"
 
-Resource::Resource()
-: inited_(false)
+Resource::Resource(unsigned long baud, LogLevel logLevel)
+: baud_(baud)
+, logLevel_(logLevel)
+, inited_(false)
 {}
 
 Resource::~Resource()
@@ -13,6 +14,11 @@ Resource::~Resource()
 ErrorCode Resource::init()
 {
     if (inited_) return CODE_OK;
+    // 初始化logger
+    LOGGER()->init();
+    LOGGER()->setBaud(baud_);
+    LOGGER()->setLevel(logLevel_);
+
     inited_ = true;
     LOG_INFO("Resource: init ok");
     return CODE_OK;
