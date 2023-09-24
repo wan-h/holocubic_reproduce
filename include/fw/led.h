@@ -12,6 +12,7 @@ public:
     ErrorCode init();
     ErrorCode setBrightness(float duty);
     ErrorCode setRGB(uint32_t id, uint8_t r, uint8_t g, uint8_t b);
+    ErrorCode update(uint16_t interval);
 private:
     bool checkInit();
 private:

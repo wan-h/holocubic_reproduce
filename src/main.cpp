@@ -23,7 +23,7 @@ void setup() {
 
   led.init();
   led.setBrightness(0.2);
-  led.setRGB(0, 0, 0, 127);
+  led.setRGB(0, 255, 0, 0);
 
   display.init();
   display.setBackLight(0.5);
@@ -37,4 +37,5 @@ void loop() {
   // put your main code here, to run repeatedly:
   ActionInfo actionInfo;
   imuAction.getAction(&actionInfo);
+  led.update(20);
 }

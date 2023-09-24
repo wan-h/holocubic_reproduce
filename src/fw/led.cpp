@@ -70,3 +70,20 @@ ErrorCode Led::setRGB(uint32_t id, uint8_t r, uint8_t g, uint8_t b)
     LOG_TRACE("Led: set led[%d] to R[%d] G[%d] B[%d]", id, r, g, b);
     return CODE_OK;
 }
+
+ErrorCode Led::update(uint16_t interval)
+{
+    if (!checkInit()) return CODE_ERROR_INIT_CHECK;
+    static long timePre = 0;
+    long timeCur = millis();
+    if ((timeCur - timePre) >= interval) {
+        static uint8_t hue = 0;
+        fill_rainbow(colorBuffers_, ledNum_, hue, 8);
+        setBrightness(hue / 500 + 0.1);
+        hue++;
+        FastLED.show();
+        timePre = timeCur;
+    }
+
+    return CODE_OK;
+}
