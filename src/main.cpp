@@ -16,6 +16,15 @@ SDCard sdCard(SD_SCK, SD_MISO, SD_MOSI, SD_SS);
 Led led(LED_PIN, LED_NUM);
 ImuAction imuAction(&imu, ACTION_CHECK_INTERVAL);
 
+void test() {
+  LV_IMG_DECLARE(astronaut);
+  lv_obj_t * img;
+
+  img = lv_gif_create(lv_scr_act());
+  lv_gif_set_src(img, &astronaut);
+  lv_obj_align(img, LV_ALIGN_LEFT_MID, 20, 0);
+}
+
 void setup() {
   // put your setup code here, to run once:
   resource.init();
@@ -31,6 +40,8 @@ void setup() {
   sdCard.init();
 
   imuAction.init();
+
+  test();
 }
 
 void loop() {
