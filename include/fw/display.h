@@ -11,6 +11,7 @@ public:
     ~Display();
     ErrorCode init();
     ErrorCode setBackLight(float duty);
+    ErrorCode update();
 private:
     bool chechInit();
 private:

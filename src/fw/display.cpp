@@ -91,3 +91,11 @@ ErrorCode Display::setBackLight(float duty)
 	ledcWrite(LCD_BL_PWM_CHANNEL, (int)(brightness_ * 255));
     return CODE_OK;
 }
+
+ErrorCode Display::update()
+{
+    if (!chechInit()) return CODE_ERROR_INIT_CHECK;
+    
+	lv_task_handler();
+    return CODE_OK;
+}

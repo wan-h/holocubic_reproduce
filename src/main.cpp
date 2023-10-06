@@ -17,14 +17,34 @@ Led led(LED_PIN, LED_NUM);
 ImuAction imuAction(&imu, ACTION_CHECK_INTERVAL);
 
 void test() {
+  // 设置背景颜色
   lv_obj_set_style_bg_color(lv_scr_act(), lv_color_hex(0x000000), LV_PART_MAIN);
-  
+  // 分区
+  lv_obj_t * content = lv_obj_create(lv_scr_act());
+  lv_obj_set_style_bg_color(content, lv_color_hex(0x000000), LV_PART_MAIN);
+  lv_obj_set_size(content, 240, 240);
+  lv_obj_align(content, LV_ALIGN_CENTER, 0, 0);
+  lv_obj_set_flex_flow(content, LV_FLEX_FLOW_COLUMN);
+  lv_obj_set_flex_align(content, LV_FLEX_ALIGN_SPACE_EVENLY , LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
+
+  // 无边框
+  static lv_style_t style;
+  lv_style_init(&style);
+  lv_style_set_border_side(&style, LV_BORDER_SIDE_NONE);
+  lv_obj_add_style(content, &style, LV_PART_MAIN); 
+
+  // gif图
   LV_IMG_DECLARE(astronaut);
   lv_obj_t * img;
-  img = lv_gif_create(lv_scr_act());
-  
+  img = lv_gif_create(content);
   lv_gif_set_src(img, &astronaut);
-  lv_obj_align(img, LV_ALIGN_CENTER, 0, 0);
+
+  // 文字显示
+  lv_obj_t * label;
+  label = lv_label_create(content);
+  lv_label_set_text(label, "HOME");
+  lv_obj_set_style_text_color(content, lv_color_hex(0xffffff), LV_PART_MAIN);
+  lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
 }
 
 void setup() {
@@ -33,11 +53,11 @@ void setup() {
   resource.printInfo();
 
   led.init();
-  led.setBrightness(0.2);
+  led.setBrightness(LED_BRIGHTNESS);
   led.setRGB(0, 255, 0, 0);
 
   display.init();
-  display.setBackLight(0.5);
+  display.setBackLight(DISPLAY_BACKLIGHT);
 
   sdCard.init();
 
@@ -50,6 +70,8 @@ void loop() {
   // put your main code here, to run repeatedly:
   ActionInfo actionInfo;
   imuAction.getAction(&actionInfo);
-  led.update(20);
-  lv_task_handler();
+
+  led.update(LED_INTERVAL);
+
+  display.update();
 }
