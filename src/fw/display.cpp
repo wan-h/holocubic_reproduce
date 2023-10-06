@@ -3,28 +3,9 @@
 
 static TFT_eSPI tft;
 
-static void my_print(lv_log_level_t level, const char* file, uint32_t line, const char* fun, const char* dsc)
+static void my_print(const char* dsc)
 {
-    switch (level)
-    {
-    case LV_LOG_LEVEL_TRACE:
-        LOG_TRACE(dsc);
-        break;
-    case LV_LOG_LEVEL_USER:
-        LOG_DEBUG(dsc);
-        break;
-    case LV_LOG_LEVEL_INFO:
-        LOG_INFO(dsc);
-        break;
-    case LV_LOG_LEVEL_WARN:
-        LOG_WARNING(dsc);
-        break;
-    case LV_LOG_LEVEL_ERROR:
-        LOG_ERROR(dsc);
-        break;
-    default:
-        break;
-    }
+    Serial.println(dsc);
     Serial.flush();
 } 
 
@@ -71,7 +52,7 @@ ErrorCode Display::init()
     // lvgl初始化
     lv_init();
 #if LV_USE_LOG
-    lv_log_register_print_cb(my_print)
+    lv_log_register_print_cb(my_print);
 #endif
     // 分配显示buffer, 显示尺寸的 1/10
     uint32_t bufferSize = width_ * height_ / 10;

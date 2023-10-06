@@ -17,12 +17,14 @@ Led led(LED_PIN, LED_NUM);
 ImuAction imuAction(&imu, ACTION_CHECK_INTERVAL);
 
 void test() {
+  lv_obj_set_style_bg_color(lv_scr_act(), lv_color_hex(0x000000), LV_PART_MAIN);
+  
   LV_IMG_DECLARE(astronaut);
   lv_obj_t * img;
-
   img = lv_gif_create(lv_scr_act());
+  
   lv_gif_set_src(img, &astronaut);
-  lv_obj_align(img, LV_ALIGN_LEFT_MID, 20, 0);
+  lv_obj_align(img, LV_ALIGN_CENTER, 0, 0);
 }
 
 void setup() {
@@ -49,4 +51,5 @@ void loop() {
   ActionInfo actionInfo;
   imuAction.getAction(&actionInfo);
   led.update(20);
+  lv_task_handler();
 }
