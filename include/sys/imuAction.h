@@ -31,6 +31,8 @@ public:
     ErrorCode init();
     ErrorCode getAction(ActionInfo* actionInfo);
 private:
+    bool checkInit();
+private:
     IMU* imu_;
     uint16_t interval_;
     ACTION_TYPE historyActions_[HISTORY_ACTIONS_NUM];

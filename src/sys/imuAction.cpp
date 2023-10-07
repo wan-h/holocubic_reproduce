@@ -23,6 +23,7 @@ ImuAction::~ImuAction()
 
 ErrorCode ImuAction::init()
 {
+    if (inited_) return CODE_OK;
     ErrorCode ret = imu_->init();
     if (ret != CODE_OK) {
         return ret;
@@ -45,12 +46,22 @@ ErrorCode ImuAction::init()
         return CODE_ERROR;
     }
 
+    inited_ = true;
     LOG_INFO("ImuAction: init ok");
     return CODE_OK;
 }
 
+bool ImuAction::checkInit()
+{
+    if (!inited_) {
+        LOG_ERROR("ImuAction: Please init first");
+    }
+    return inited_;
+}
+
 ErrorCode ImuAction::getAction(ActionInfo* actionInfo)
 {
+    if (!checkInit()) return CODE_ERROR_INIT_CHECK;
     // 动作判断
     ErrorCode ret = imu_->update();
     if (ret != CODE_OK) return ret;
