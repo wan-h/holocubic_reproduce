@@ -2,6 +2,8 @@
 #include "fw/logger.h"
 #include "conf.h"
 
+static lv_obj_t* menuScr = nullptr;
+
 AppController::AppController()
 : menuInfo_({0})
 , inited_(false)
@@ -47,14 +49,23 @@ bool AppController::checkInit()
 
 void AppController::showAppIcon(lv_scr_load_anim_t anim_type)
 {
+    lv_obj_t* act_obj = lv_scr_act();
+    if (act_obj == menuScr) {
+        return;
+    }
     // 清空当前页面
-    lv_obj_clean(lv_scr_act());
+    lv_obj_clean(act_obj);
 
-    lv_obj_t* appIcon = lv_img_create(menuInfo_.appMenu);
+    menuScr = lv_obj_create(nullptr);
+    lv_obj_set_style_bg_color(menuScr, lv_color_hex(0x000000), LV_PART_MAIN);
+    lv_obj_set_size(menuScr, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+    lv_obj_align(menuScr, LV_ALIGN_CENTER, 0, 0);
+
+    lv_obj_t* appIcon = lv_img_create(menuScr);
     lv_img_set_src(appIcon, appDescs_[menuInfo_.appId_].icon);
     lv_obj_align(appIcon, LV_ALIGN_CENTER, 0, 0);
 
-    lv_scr_load_anim(appIcon, anim_type, 300, 300, false);
+    lv_scr_load_anim(menuScr, anim_type, 0, 0, true);
 }
 
 void AppController::exitApp()
@@ -73,6 +84,10 @@ ErrorCode AppController::install(AppDesc appDesc)
 ErrorCode AppController::process(ActionInfo* actionInfo)
 {
     if (!checkInit()) return CODE_ERROR_INIT_CHECK;
+    if (appDescs_.empty()) {
+        LOG_WARNING("Please install app");
+        return CODE_OK;
+    }
     // app 运行中
     if (menuInfo_.appRunning_) {
         appDescs_[menuInfo_.appId_].appProcess(this, actionInfo);
@@ -101,14 +116,14 @@ ErrorCode AppController::process(ActionInfo* actionInfo)
         default:
             break;
         }
-
-        LOG_TRACE("AppController: Menu switch to %s", appDescs_[menuInfo_.appId_].name.c_str());
         
         if (!menuInfo_.appRunning_) {
+            LOG_DEBUG("AppController: Menu switch to %s", appDescs_[menuInfo_.appId_].name.c_str());
             showAppIcon(anim_type);
         }
     }
     // 动作已响应
     actionInfo->actionType = ACTION_NONE;
     actionInfo->isAvailable = false;
+    return CODE_OK;
 }

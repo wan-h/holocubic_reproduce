@@ -1,10 +1,9 @@
 #include "app/astronaut/astronaut.h"
-#include "sys/appController.h"
 #include "conf.h"
 
 #define ASTRONAUT_APP_NAME "astronaut"
 
-lv_obj_t* appScr = nullptr;
+static lv_obj_t* appScr = nullptr;
 
 ErrorCode astronautInit(AppController* appController)
 {
@@ -37,10 +36,10 @@ ErrorCode astronautProcess(AppController* appController, ActionInfo* actionInfo)
     lv_obj_set_size(appScr, DISPLAY_WIDTH, DISPLAY_HEIGHT);
     lv_obj_align(appScr, LV_ALIGN_CENTER, 0, 0);
     // gif图展示
-    LV_IMG_DECLARE(astronaut);
+    LV_IMG_DECLARE(astronaut_app_gif);
     lv_obj_t* gif;
     gif = lv_gif_create(appScr);
-    lv_gif_set_src(gif, &astronaut);
+    lv_gif_set_src(gif, &astronaut_app_gif);
     lv_obj_center(gif);
     // 加载页面
     lv_scr_load(appScr);
@@ -50,7 +49,7 @@ ErrorCode astronautProcess(AppController* appController, ActionInfo* actionInfo)
 
 AppDesc astronautAppDesc = {
     ASTRONAUT_APP_NAME,
-    nullptr,
+    &astronaut_app_icon,
     astronautInit,
     astronautProcess
 };

@@ -21,7 +21,7 @@
 #define LV_ATTRIBUTE_IMG_ASTRONAUT
 #endif
 
-const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_ASTRONAUT uint8_t astronaut_map[] = {
+const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_ASTRONAUT uint8_t astronaut_app_gif_map[] = {
     0x47, 0x49, 0x46, 0x38, 0x39, 0x61, 0xa0, 0x00, 0xa4, 0x00, 0xf5, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x07, 0x08, 0x07, 0x0b, 0x0c, 0x0b, 0x0f, 0x10, 0x0f, 0x13, 
     0x14, 0x13, 0x17, 0x18, 0x17, 0x1b, 0x1c, 0x1b, 0x1f, 0x20, 0x1f, 0x23, 0x24, 
@@ -27902,12 +27902,12 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_ASTRONAUT
     0x00, 0x3b
 };
 
-const lv_img_dsc_t astronaut = {
+const lv_img_dsc_t astronaut_app_gif = {
   .header.cf = LV_IMG_CF_RAW_CHROMA_KEYED,
   .header.always_zero = 0,
   .header.reserved = 0,
   .header.w = 160,
   .header.h = 164,
   .data_size = 362403,
-  .data = astronaut_map,
+  .data = astronaut_app_gif_map,
 };

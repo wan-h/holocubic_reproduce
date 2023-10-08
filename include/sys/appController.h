@@ -6,9 +6,11 @@
 #include "lvgl.h"
 #include <vector>
 
+class AppController;
+
 typedef struct AppDesc {
-    std::string name;
-    lv_img_dsc_t* icon;
+    const std::string name;
+    const lv_img_dsc_t* icon;
     ErrorCode (*appInit) (AppController* appController);
     ErrorCode (*appProcess) (AppController* appController, ActionInfo* actionInfo);
 } AppDesc;
@@ -31,7 +33,7 @@ public:
     void exitApp();
 private:
     bool checkInit();
-    void showAppIcon(lv_scr_load_anim_t anim_type);
+    void showAppIcon(lv_scr_load_anim_t anim_type = LV_SCR_LOAD_ANIM_NONE);
 private:
     bool inited_;
     std::vector<AppDesc> appDescs_;
