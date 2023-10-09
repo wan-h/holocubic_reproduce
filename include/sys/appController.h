@@ -18,7 +18,6 @@ typedef struct AppDesc {
 typedef struct MenuInfo {
     uint16_t appId_;
     bool appRunning_;
-    lv_obj_t* appMenu;
 } MenuInfo;
 
 class AppController 

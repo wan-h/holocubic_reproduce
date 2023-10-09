@@ -9,6 +9,7 @@
 #include "sys/imuAction.h"
 #include "sys/appController.h"
 #include "app/astronaut/astronaut.h"
+#include "app/circle/circle.h"
 #include "conf.h"
 
 Resource resource(LOG_BAUD, LEVEL_DEBUG);
@@ -37,7 +38,7 @@ void setup() {
 
   appControler.init();
   appControler.install(astronautAppDesc);
-
+  appControler.install(circleAppDesc);
 }
 
 void loop() {

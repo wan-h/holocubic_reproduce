@@ -84,7 +84,7 @@ ErrorCode ImuAction::getAction(ActionInfo* actionInfo)
             LOG_DEBUG("ImuAction: getAction [ACTION_HOME]");
         } else {
             actionInfo->actionType = ACTION_NONE;
-            LOG_DEBUG("ImuAction: getAction [ACTION_NONE]");
+            LOG_TRACE("ImuAction: getAction [ACTION_NONE]");
         }
 
         actionInfo->isAvailable = true;

@@ -12,10 +12,6 @@ AppController::AppController()
 AppController::~AppController()
 {
     inited_ = false;
-    if (menuInfo_.appMenu != nullptr) {
-        lv_obj_clean(menuInfo_.appMenu);
-        menuInfo_.appMenu = nullptr;
-    }
 }
 
 ErrorCode AppController::init()
@@ -26,13 +22,6 @@ ErrorCode AppController::init()
     // 初始化Info
     menuInfo_.appId_ = 0;
     menuInfo_.appRunning_ = false;
-    menuInfo_.appMenu = nullptr;
-    // 初始化菜单显示
-    menuInfo_.appMenu = lv_obj_create(nullptr);
-    lv_obj_set_style_bg_color(menuInfo_.appMenu, lv_color_hex(0x000000), LV_PART_MAIN); // 黑色背景
-    lv_obj_set_size(menuInfo_.appMenu, DISPLAY_WIDTH, DISPLAY_HEIGHT);
-    lv_obj_align(menuInfo_.appMenu, LV_ALIGN_CENTER, 0, 0);
-    lv_scr_load(menuInfo_.appMenu);
 
     inited_ = true;
     LOG_INFO("AppController: init ok");
@@ -50,11 +39,12 @@ bool AppController::checkInit()
 void AppController::showAppIcon(lv_scr_load_anim_t anim_type)
 {
     lv_obj_t* act_obj = lv_scr_act();
-    if (act_obj == menuScr) {
-        return;
-    }
+    // if (act_obj == menuScr) {
+    //     return;
+    // }
     // 清空当前页面
-    lv_obj_clean(act_obj);
+    // lv_obj_clean(act_obj);
+    LOG_DEBUG("action=======> %d", anim_type);
 
     menuScr = lv_obj_create(nullptr);
     lv_obj_set_style_bg_color(menuScr, lv_color_hex(0x000000), LV_PART_MAIN);
@@ -65,7 +55,11 @@ void AppController::showAppIcon(lv_scr_load_anim_t anim_type)
     lv_img_set_src(appIcon, appDescs_[menuInfo_.appId_].icon);
     lv_obj_align(appIcon, LV_ALIGN_CENTER, 0, 0);
 
-    lv_scr_load_anim(menuScr, anim_type, 0, 0, true);
+    lv_scr_load_anim(menuScr, anim_type, 300, 300, true);
+    // 等待切换动画结束
+    while (lv_anim_count_running()) {
+        lv_task_handler();
+    }
 }
 
 void AppController::exitApp()
@@ -99,14 +93,17 @@ ErrorCode AppController::process(ActionInfo* actionInfo)
         case ACTION_HOME:
             menuInfo_.appId_ = 0;
             anim_type = LV_SCR_LOAD_ANIM_MOVE_TOP;
+            LOG_DEBUG("AppController: Menu switch to %s", appDescs_[menuInfo_.appId_].name.c_str());
             break;
         case ACTION_LEFT:
             menuInfo_.appId_ = menuInfo_.appId_ == 0 ? (appDescs_.size() - 1) : (menuInfo_.appId_ - 1);
             anim_type = LV_SCR_LOAD_ANIM_MOVE_LEFT;
+            LOG_DEBUG("AppController: Menu switch to %s", appDescs_[menuInfo_.appId_].name.c_str());
             break;
         case ACTION_RIGHT:
             menuInfo_.appId_ = menuInfo_.appId_ == (appDescs_.size() - 1) ? 0 : (menuInfo_.appId_ + 1);
             anim_type = LV_SCR_LOAD_ANIM_MOVE_RIGHT;
+            LOG_DEBUG("AppController: Menu switch to %s", appDescs_[menuInfo_.appId_].name.c_str());
             break;
         case ACTION_UP:
         case ACTION_DOWN:
@@ -118,7 +115,6 @@ ErrorCode AppController::process(ActionInfo* actionInfo)
         }
         
         if (!menuInfo_.appRunning_) {
-            LOG_DEBUG("AppController: Menu switch to %s", appDescs_[menuInfo_.appId_].name.c_str());
             showAppIcon(anim_type);
         }
     }
