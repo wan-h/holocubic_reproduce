@@ -9,11 +9,11 @@
 #define DISPLAY_BL_PIN    5
 #define DISPLAY_BACKLIGHT 0.5
 #define SD_SCK            14
-#define SD_MISO           26
+#define SD_MISO           27
 #define SD_MOSI           13
 #define SD_SS             15
 #define LED_NUM           1
-#define LED_PIN           27
+#define LED_PIN           26
 #define LED_BRIGHTNESS    0.2
 #define LED_INTERVAL      20
 

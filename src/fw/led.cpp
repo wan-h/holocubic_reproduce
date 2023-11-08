@@ -18,7 +18,7 @@ Led::~Led()
     inited_ = false;
 }
 
-#define LED_PIN 27
+#define LED_PIN 26
 
 ErrorCode Led::init()
 {

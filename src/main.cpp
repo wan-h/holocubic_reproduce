@@ -32,7 +32,7 @@ void setup() {
   display.init();
   display.setBackLight(DISPLAY_BACKLIGHT);
 
-  sdCard.init();
+  // sdCard.init();
 
   imuAction.init();
 
