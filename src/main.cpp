@@ -6,17 +6,19 @@
 #include "fw/resource.h"
 #include "fw/sdCard.h"
 #include "fw/led.h"
+#include "fw/wifi.h"
 #include "sys/imuAction.h"
 #include "sys/appController.h"
 #include "app/astronaut/astronaut.h"
 #include "app/circle/circle.h"
 #include "conf.h"
 
-Resource resource(LOG_BAUD, LEVEL_DEBUG);
+Resource resource(LOG_BAUD, LEVEL_INFO);
 IMU imu(IMU_SCL, IMU_SDA);
 Display display(DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_BL_PIN);
 SDCard sdCard(SD_SCK, SD_MISO, SD_MOSI, SD_SS);
 Led led(LED_PIN, LED_NUM);
+WifiStation wifiStation(WIFI_SSID, WIFI_PASSWD);
 ImuAction imuAction(&imu, ACTION_CHECK_INTERVAL);
 AppController appControler;
 
@@ -33,6 +35,7 @@ void setup() {
   display.setBackLight(DISPLAY_BACKLIGHT);
 
   // sdCard.init();
+  wifiStation.init();
 
   imuAction.init();
 
@@ -49,4 +52,8 @@ void loop() {
 
   led.update(LED_INTERVAL);
   display.update();
+
+  // String resp;
+  // String req = "GET /";
+  // ErrorCode ret = wifiStation.request("www.baidu.com", 80, req, resp);
 }

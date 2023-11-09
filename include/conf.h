@@ -16,6 +16,8 @@
 #define LED_PIN           26
 #define LED_BRIGHTNESS    0.2
 #define LED_INTERVAL      20
+#define WIFI_SSID         "一力辉的wifi"
+#define WIFI_PASSWD       "wanhui375991"
 
 #define ACTION_CHECK_INTERVAL      300
 

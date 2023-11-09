@@ -1,6 +1,5 @@
 #include "fw/led.h"
 #include "fw/logger.h"
-#include "conf.h"
 
 Led::Led(uint8_t ledPin, uint32_t ledNum, float brightness)
 : ledPin_(ledPin)
@@ -19,6 +18,7 @@ Led::~Led()
     inited_ = false;
 }
 
+#define LED_PIN 26
 ErrorCode Led::init()
 {
     if (inited_) return CODE_OK;

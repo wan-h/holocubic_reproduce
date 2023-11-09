@@ -7,15 +7,17 @@
 class WifiStation
 {
 public:
-    WifiStation(std::string ssid, std::string passwd);
+    WifiStation(String ssid, String passwd);
     ~WifiStation();
     ErrorCode init();
+    ErrorCode request(String host, int port, String req, String& resp);
 private:
     bool checkInit();
+    String readResponse();
 private:
-    std::string ssid_;
-    std::string passwd_;
-    WiFiClient* client_;
+    String ssid_;
+    String passwd_;
+    WiFiClient client_;
     bool inited_;
 };
 
