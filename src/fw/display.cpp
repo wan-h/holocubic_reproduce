@@ -61,7 +61,7 @@ ErrorCode Display::init()
 
     // 配置显示驱动
     tft.begin();
-    // tft.setRotation(3);
+    tft.setRotation(3);
     lv_disp_drv_init(&dispDrv_);
     dispDrv_.flush_cb = my_disp_flush;    /*Set your driver function*/
     dispDrv_.draw_buf = &drawBuf_;        /*Assign the buffer to the display*/
