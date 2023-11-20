@@ -19,7 +19,7 @@
 ## 内容分享
 ---
 **知乎板块**：  
-[Holocubic复刻之路-序言](https://zhuanlan.zhihu.com/p/667686115)  
+[Holocubic复刻之路-序言](https://zhuanlan.zhihu.com/p/667687467)  
 
 **微信公众号板块**：  
 [Holocubic复刻之路-序言](https://mp.weixin.qq.com/s/g9OoGMnk5hJdyEyZY1zoVg)   

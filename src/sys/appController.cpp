@@ -92,17 +92,17 @@ ErrorCode AppController::process(ActionInfo* actionInfo)
         {
         case ACTION_HOME:
             menuInfo_.appId_ = 0;
-            anim_type = LV_SCR_LOAD_ANIM_MOVE_TOP;
+            anim_type = LV_SCR_LOAD_ANIM_MOVE_LEFT;
             LOG_DEBUG("AppController: Menu switch to %s", appDescs_[menuInfo_.appId_].name.c_str());
             break;
         case ACTION_LEFT:
             menuInfo_.appId_ = menuInfo_.appId_ == 0 ? (appDescs_.size() - 1) : (menuInfo_.appId_ - 1);
-            anim_type = LV_SCR_LOAD_ANIM_MOVE_LEFT;
+            anim_type = LV_SCR_LOAD_ANIM_MOVE_TOP;
             LOG_DEBUG("AppController: Menu switch to %s", appDescs_[menuInfo_.appId_].name.c_str());
             break;
         case ACTION_RIGHT:
             menuInfo_.appId_ = menuInfo_.appId_ == (appDescs_.size() - 1) ? 0 : (menuInfo_.appId_ + 1);
-            anim_type = LV_SCR_LOAD_ANIM_MOVE_RIGHT;
+            anim_type = LV_SCR_LOAD_ANIM_MOVE_BOTTOM;
             LOG_DEBUG("AppController: Menu switch to %s", appDescs_[menuInfo_.appId_].name.c_str());
             break;
         case ACTION_UP:
