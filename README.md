@@ -20,9 +20,11 @@
 ---
 **知乎板块**：  
 [Holocubic复刻之路-序言](https://zhuanlan.zhihu.com/p/667687467)  
+[Holocubic复刻之路-原理篇](https://zhuanlan.zhihu.com/p/668107235)  
 
 **微信公众号板块**：  
-[Holocubic复刻之路-序言](https://mp.weixin.qq.com/s/g9OoGMnk5hJdyEyZY1zoVg)   
+[Holocubic复刻之路-序言](https://mp.weixin.qq.com/s/g9OoGMnk5hJdyEyZY1zoVg)  
+[Holocubic复刻之路-原理篇](https://mp.weixin.qq.com/s/hCcCmEE-HVDEflkmTs4eXQ)  
 
 公众号同步更新，请关注 **硅基ROBOT**  
 ![](resources/硅基ROBOT-8cm.jpg)
