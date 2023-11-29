@@ -8,7 +8,8 @@
 ![](resources/学习路线图.png)
 
 ## 硬件部分
----
+---  
+硬件部分已经上传到[立创开源广场](https://oshwhub.com/will.wan/holocubic)
 
 ## 软件部分
 ---
@@ -22,11 +23,13 @@
 [Holocubic复刻之路-序言](https://zhuanlan.zhihu.com/p/667687467)  
 [Holocubic复刻之路-原理篇](https://zhuanlan.zhihu.com/p/668107235)  
 [Holocubic复刻之路-硬件篇-电路原理图](https://zhuanlan.zhihu.com/p/668943131)  
+[Holocubic复刻之路-硬件篇-PCB绘制](https://zhuanlan.zhihu.com/p/669356547)  
 
 **微信公众号板块**：  
 [Holocubic复刻之路-序言](https://mp.weixin.qq.com/s/g9OoGMnk5hJdyEyZY1zoVg)  
 [Holocubic复刻之路-原理篇](https://mp.weixin.qq.com/s/hCcCmEE-HVDEflkmTs4eXQ)  
 [Holocubic复刻之路-硬件篇-电路原理图](https://mp.weixin.qq.com/s/9BZ2hZZiAkcib54U-MHgQA)  
+[Holocubic复刻之路-硬件篇-PCB绘制](https://mp.weixin.qq.com/s/UG-cqXRy1sHwRkdve2HKiw)  
 
 公众号同步更新，请关注 **硅基ROBOT**  
 ![](resources/硅基ROBOT-8cm.jpg)
