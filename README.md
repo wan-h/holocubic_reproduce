@@ -26,6 +26,7 @@
 [Holocubic复刻之路-硬件篇-PCB绘制](https://zhuanlan.zhihu.com/p/669356547)  
 [Holocubic复刻之路-硬件篇-PCB焊接](https://zhuanlan.zhihu.com/p/669744283)  
 [Holocubic复刻之路-软件篇-工程架构](https://zhuanlan.zhihu.com/p/670184699)  
+[Holocubic复刻之路-软件篇-驱动移植](https://zhuanlan.zhihu.com/p/670385330)  
 
 **微信公众号板块**：  
 [Holocubic复刻之路-序言](https://mp.weixin.qq.com/s/g9OoGMnk5hJdyEyZY1zoVg)  
@@ -34,6 +35,7 @@
 [Holocubic复刻之路-硬件篇-PCB绘制](https://mp.weixin.qq.com/s/UG-cqXRy1sHwRkdve2HKiw)  
 [Holocubic复刻之路-硬件篇-PCB焊接](https://mp.weixin.qq.com/s/iGqCdDKC1GpauwrAINV9UA)  
 [Holocubic复刻之路-软件篇-工程架构](https://mp.weixin.qq.com/s/_jIpUm0_Vr3VP4WGBFgyiw)  
+[Holocubic复刻之路-软件篇-驱动移植](https://mp.weixin.qq.com/s/LPaq20nl86-nybf8BDHKPg)  
 
 公众号同步更新，请关注 **硅基ROBOT**  
 ![](resources/硅基ROBOT-8cm.jpg)
