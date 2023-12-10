@@ -16,6 +16,7 @@
 
 ## 外壳部分
 ---
+外壳3D模型文件在[3DShell](./3DShell)文件夹下
 
 ## 内容分享
 ---
@@ -28,6 +29,7 @@
 [Holocubic复刻之路-软件篇-工程架构](https://zhuanlan.zhihu.com/p/670184699)  
 [Holocubic复刻之路-软件篇-驱动移植](https://zhuanlan.zhihu.com/p/670385330)  
 [Holocubic复刻之路-软件篇-APP编写](https://zhuanlan.zhihu.com/p/670804613)  
+[Holocubic复刻之路-外壳篇-3D打印](https://zhuanlan.zhihu.com/p/671441116)  
 
 **微信公众号板块**：  
 [Holocubic复刻之路-序言](https://mp.weixin.qq.com/s/g9OoGMnk5hJdyEyZY1zoVg)  
@@ -38,6 +40,7 @@
 [Holocubic复刻之路-软件篇-工程架构](https://mp.weixin.qq.com/s/_jIpUm0_Vr3VP4WGBFgyiw)  
 [Holocubic复刻之路-软件篇-驱动移植](https://mp.weixin.qq.com/s/LPaq20nl86-nybf8BDHKPg)  
 [Holocubic复刻之路-软件篇-APP编写](https://mp.weixin.qq.com/s/clkCv0ckISnppMRNjqzFOA)  
+[Holocubic复刻之路-外壳篇-3D打印](https://mp.weixin.qq.com/s/eF_fNTJvMFr8hR-gaSXPrQ)
 
 公众号同步更新，请关注 **硅基ROBOT**  
 ![](resources/硅基ROBOT-8cm.jpg)
