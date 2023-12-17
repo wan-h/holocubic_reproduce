@@ -35,7 +35,8 @@ void setup() {
   display.setBackLight(DISPLAY_BACKLIGHT);
 
   // sdCard.init();
-  wifiStation.init();
+
+  // wifiStation.init();
 
   imuAction.init();
 
