@@ -5,11 +5,13 @@
 参考工程：[大佬的原项目工程](https://github.com/peng-zhihui/HoloCubic)  
 博主基本也是从0到1学习实践的，所以记录学习过程，大家一起学习  
 学习思路：按照以下教程完成 *硬件学习* -> *软件学习* -> *外壳制作*  
-[B站视频](https://www.bilibili.com/video/BV1hN4y1h719/?share_source=copy_web&vd_source=aa112a1eb5d)  
 ![](resources/学习路线图.png)
 
 ## 效果展示
 ---
+### 视频
+[**B站视频**](https://www.bilibili.com/video/BV1hN4y1h719/?share_source=copy_web&vd_source=aa112a1eb5d)  
+### 图片
 PCB-3D图  
 ![](resources/PCB-3D图.PNG)  
 主板图  
@@ -20,7 +22,10 @@ PCB-3D图
 
 ## 硬件部分
 ---  
-硬件部分已经上传到[立创开源广场](https://oshwhub.com/will.wan/holocubic)
+硬件部分已经上传到[立创开源广场](https://oshwhub.com/will.wan/holocubic)  
+有部分同学想看一下具体的焊接组装过程(视频较长，文件较大)，我上传到了百度云盘供大家参考  
+链接：https://pan.baidu.com/s/1LNbCqsNchMLSnWtKDsnOmw?pwd=3cr1   
+提取码：3cr1   
 
 ## 软件部分
 ---
@@ -59,7 +64,7 @@ PCB-3D图
 
 
 ## 致谢
-[原作者](https://github.com/peng-zhihui/HoloCubic)  
+[原作者-稚晖君](https://github.com/peng-zhihui/HoloCubic)  
 博文中提及的所有参考资料贡献者
 
 ---
