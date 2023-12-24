@@ -29,7 +29,8 @@ PCB-3D图
 
 ## 软件部分
 ---
-参考本项目
+参考本项目实现部分  
+对于APP的丰富度，推荐大家参考[HoloCubic_AIO](https://github.com/ClimbSnail/HoloCubic_AIO)
 
 ## 外壳部分
 ---
@@ -65,6 +66,7 @@ PCB-3D图
 
 ## 致谢
 [原作者-稚晖君](https://github.com/peng-zhihui/HoloCubic)  
+[APP移植参考](https://github.com/ClimbSnail/HoloCubic_AIO)  
 博文中提及的所有参考资料贡献者
 
 ---
