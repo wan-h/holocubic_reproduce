@@ -29,8 +29,10 @@ PCB-3D图
 
 ## 软件部分
 ---
-参考本项目实现部分  
-对于APP的丰富度，推荐大家参考[HoloCubic_AIO](https://github.com/ClimbSnail/HoloCubic_AIO)
+参考本项目实现部分，配置环境为VSCode+PlatformIO+Arduino  
+环境配置好后下载本项目直接编译下载即可  
+![](resources/编译.png)  
+对于APP的丰富度，推荐大家参考[HoloCubic_AIO](https://github.com/ClimbSnail/HoloCubic_AIO)(如果使用本工程需要自己移植)
 
 ## 外壳部分
 ---
